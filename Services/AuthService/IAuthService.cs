@@ -10,6 +10,7 @@ namespace TokoOnline.Services
         public Task<Auth> Authenticate(string email, string password);
         public Task<Auth?> GetFromEmail(string value);
         public Task<Auth?> GetFromPhoneNumber(string value);
+        public Task<Auth?> GetFromId(int value);
         public string FormatPhoneNumber(string value);
         public Task Verify(Auth auth);
     }

@@ -11,5 +11,6 @@ namespace TokoOnline.Services
         public string CreateRefreshToken(Auth auth);
         public Token Refresh(string token);
         public List<Claim> GetClaimsFromRefresh(string token);
+        public int GetAuthIdFromClaim(ClaimsPrincipal principal);
     }
 }

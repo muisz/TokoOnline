@@ -66,6 +66,11 @@ namespace TokoOnline.Services
             return await _context.Auths.SingleOrDefaultAsync(auth => auth.PhoneNumber == phoneNumber);
         }
 
+        public async Task<Auth?> GetFromId(int value)
+        {
+            return await _context.Auths.SingleOrDefaultAsync(auth => auth.Id == value);
+        }
+
         public string FormatPhoneNumber(string value)
         {
             string countryCode = "62";
