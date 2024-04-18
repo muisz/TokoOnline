@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TokoOnline.Models;
+using TokoOnline.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(
     option => option.UseNpgsql(builder.Configuration["Database:ConnectionString"])
 );
+
+builder.Services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
+builder.Services.AddSingleton<ITokenService, JWTService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOTPService, OTPService>();
 
 var app = builder.Build();
 
