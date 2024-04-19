@@ -1,6 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using TokoOnline.Models;
 using TokoOnline.Services;
@@ -36,6 +37,8 @@ builder.Services.AddSingleton<ITokenService, JWTService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOTPService, OTPService>();
 builder.Services.AddScoped<ISellerProfileService, SellerProfileService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IFileStorage, LocalStorage>();
 
 var app = builder.Build();
 
@@ -47,6 +50,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Media")
+    ),
+    RequestPath = "/media"
+});
 
 app.UseAuthentication();
 
