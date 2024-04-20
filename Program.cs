@@ -49,13 +49,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+string mediaRoot = Path.Combine(builder.Environment.ContentRootPath, "Media");
+if (!Directory.Exists(mediaRoot))
+{
+    Directory.CreateDirectory(mediaRoot);
+}
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "Media")
-    ),
+    FileProvider = new PhysicalFileProvider(mediaRoot),
     RequestPath = "/media"
 });
 

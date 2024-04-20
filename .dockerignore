@@ -1,0 +1,14 @@
+# directories
+**/bin/
+**/obj/
+**/out/
+
+# files
+Dockerfile*
+**/*.md
+
+# configs
+appsettings.*.json
+
+# uploaded local files
+Media/*
