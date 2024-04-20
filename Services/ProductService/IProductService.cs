@@ -7,5 +7,6 @@ namespace TokoOnline.Services
     {
         public Task<Product> AddProduct(AddProduct item, Seller seller);
         public Task<ICollection<Product>> GetProductsFromSeller(int id);
+        public Task<Product?> GetProduct(int id);
     }
 }

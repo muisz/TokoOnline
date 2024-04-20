@@ -4,10 +4,12 @@ namespace TokoOnline.Services
     {
         private readonly string _directory;
         private readonly IHostEnvironment _environment;
+        private readonly IConfiguration _configuration;
 
-        public LocalStorage(IHostEnvironment environment)
+        public LocalStorage(IHostEnvironment environment, IConfiguration configuration)
         {
             _environment = environment;
+            _configuration = configuration;
             _directory = Path.Combine(environment.ContentRootPath, "Media");
         }
 
@@ -24,6 +26,12 @@ namespace TokoOnline.Services
             }
             file.Close();
             return Task.FromResult(filename);
+        }
+
+        public Task<string> GetAccessibleUrl(string file)
+        {
+            string url = _configuration["Urls"] ?? "";
+            return Task.FromResult($"{url}/media/{file}");
         }
 
         public void CreateDirectoryIfNotExist()

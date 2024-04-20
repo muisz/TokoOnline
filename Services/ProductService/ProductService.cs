@@ -60,5 +60,15 @@ namespace TokoOnline.Services
                 .Where(product => product.SellerId == id)
                 .ToListAsync();
         }
+
+        public async Task<Product?> GetProduct(int id)
+        {
+            return await _context.Products
+                .Include(product => product.Variants)
+                .Include(product => product.Media)
+                .SingleOrDefaultAsync(
+                    product => product.Id == id
+                );
+        }
     }
 }
